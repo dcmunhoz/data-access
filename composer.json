@@ -1,0 +1,17 @@
+{
+    "name": "dcmunhoz/data-access",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dcmunhoz",
+            "email": "dc.munhoz@hotmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DataAccess\\": "src/"
+        }
+    },
+    "require": {}
+}
