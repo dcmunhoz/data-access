@@ -1,6 +1,6 @@
 {
     "name": "dcmunhoz/data-access",
-    "description": "Data Access is a library designed to manipulate databases"
+    "description": "Data Access is a library designed to manipulate databases",
     "type": "library",
     "license": "MIT",
     "authors": [
