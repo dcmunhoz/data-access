@@ -16,6 +16,9 @@ $user = new UserController();
 //     ":pid" => '2'
 // ]);
 
-$result = $user->raw("SELECT * FROM TB_USERS");
+// $result = $user->raw("SELECT * FROM TB_USERS");
+
+$result = $user->find()->fetch(true);
+
 
 var_dump($result);

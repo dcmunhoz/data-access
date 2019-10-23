@@ -37,7 +37,7 @@ class DataAccess {
      * @param string|null $primary Name of primary field of entity.
      * 
      */
-    function __construct(string $entity, string $primary)
+    public function __construct(string $entity, string $primary)
     {
 
         if (!empty($entity) && !empty($primary)){
@@ -50,7 +50,7 @@ class DataAccess {
                 ";port=". DATA_ACCESS['port'] . ";dbname=" . DATA_ACCESS['dbname'];
                 
 
-                $this->con =  new \PDO($dsn, DATA_ACCESS['user'], DATA_ACCESS['password'], DATA_ACCESS['options']);
+                $this->con = new \PDO($dsn, DATA_ACCESS['user'], DATA_ACCESS['password'], DATA_ACCESS['options']);
 
             } catch (PDOException $e) {
     
@@ -71,7 +71,7 @@ class DataAccess {
      * @param string $value Setter param value
      * 
      */
-    function __set(string $name, $value) 
+    public function __set(string $name, $value) 
     {
 
         if (empty($this->attributes)) {
@@ -91,7 +91,7 @@ class DataAccess {
      * @param string $name Getter param name
      * 
      */
-    function __get(string $name) 
+    public function __get(string $name) 
     {
 
         return ($this->attributes->{$name} ?? null);
@@ -189,6 +189,26 @@ class DataAccess {
     }
 
     /**
+     * 
+     * Return all results of table
+     * 
+     * @param string $columns Columns to show on result
+     */
+    public function find(string $columns = "*"): DataAccess 
+    {
+
+        if (!empty($columns)) {
+            $this->query = "select {$columns} from {$this->entity} ";
+
+            return $this;
+        }
+
+        $err = \json_encode(["error"=>true, "errMsg"=>"columns can't be null or empty"]);
+        die($err);
+
+    }
+
+    /**
      * Bind query params 
      * 
      * @param \PDOStatement $stmt Statement
@@ -215,5 +235,33 @@ class DataAccess {
     {
         $stmt->bindParam($key, $value);
     }
+    
+    /**
+     * 
+     * Fetch the query
+     * 
+     */
+    public function fetch($all = false)
+    {
 
+        if (!$this->query){
+
+            die("No query found !");
+        }
+
+        $stmt = $this->con->prepare($this->query);
+
+        if (!empty($this->terms)) {
+            $this->bindParams($stmt, $this->terms);
+        }
+
+        $stmt->execute();
+
+        $fetch = ($all) ? 'fetchAll' : 'fetch';
+
+        $result = $stmt->{"$fetch"}();
+
+        return $result;
+
+    }
 }
