@@ -51,7 +51,6 @@ class UserController extends DataAccess{
 
 #### RAW execution
 RAW executions allows you to execute whatever query you want.
-
 ```php
 $user = new UserController();
 
@@ -64,3 +63,35 @@ $result = $user->raw("INSERT INTO TB_USERS(USER_NAME, PASSW, ID_PROFILE) VALUES(
 On INSERT, UPDATE or DELETE statement, RAW execution will return true in case of success or false if query fails.
 
 On SELECT statement it will return an array with all found records.
+
+#### fetch
+fetch() will execute the query, if pass false to params, it will return only the first match, if pass true, will return all records
+```php
+$user = new UserController();
+
+//$result = $user->...->fetch(false);
+$result = $user->...->fetch(true);
+
+print_r($result);
+```
+
+#### find
+find() will return all records from class entity
+```php
+$user = new UserController();
+
+$result = $user->find()->fetch(true);
+
+print_r($result);
+```
+
+#### filter
+filter() allows you to create a where statement to find specific records
+```php
+$user = new UserController();
+
+$result = $user->find()->filter("USER_NAME = :uname AND ID_USER = :uid", [":uname" => "USER1", ":uid" => 1])->fetch();
+
+print_r($result);
+```
+
