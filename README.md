@@ -43,6 +43,7 @@ class UserController extends DataAccess{
      * User Constructor
      */
     function __construct(){
+        /** \DataAccess::_construct(ENTITY_NAME, PRIMARY_KEY) */
         parent::__construct("TB_USERS", "ID_USER");
     }
 }
@@ -63,4 +64,3 @@ $result = $user->raw("INSERT INTO TB_USERS(USER_NAME, PASSW, ID_PROFILE) VALUES(
 On INSERT, UPDATE or DELETE statement, RAW execution will return true in case of success or false if query fails.
 
 On SELECT statement it will return an array with all found records.
-

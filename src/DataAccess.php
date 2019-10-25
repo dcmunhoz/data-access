@@ -209,6 +209,25 @@ class DataAccess {
     }
 
     /**
+     * 
+     * Filter search
+     * 
+     */
+    public function filter(string $where, array $values): DataAccess
+    {
+
+        if(empty($this->query)){
+            die("Query can't be null");
+        }
+
+        $this->query .= " WHERE {$where} ";
+        $this->terms = $values;
+
+        return $this;
+
+    }
+
+    /**
      * Bind query params 
      * 
      * @param \PDOStatement $stmt Statement

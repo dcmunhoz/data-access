@@ -18,7 +18,9 @@ $user = new UserController();
 
 // $result = $user->raw("SELECT * FROM TB_USERS");
 
-$result = $user->find()->fetch(true);
+// $result = $user->find()->fetch(true);
+
+$result = $user->find()->filter("USER_NAME = :uname AND ID_USER = :uid", [":uname" => "USER1", ":uid" => 1])->fetch();
 
 
 var_dump($result);

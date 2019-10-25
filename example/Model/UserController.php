@@ -14,6 +14,7 @@ class UserController extends DataAccess{
 
     function __construct(){
 
+        /** \DataAccess::_construct(ENTITY_NAME, PRIMARY_KEY) */
         parent::__construct("TB_USERS", "ID_USER");
         
     }
