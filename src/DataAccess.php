@@ -161,7 +161,7 @@ class DataAccess {
      * @param array|null $params Params to bind on query
      * 
      */
-    public function raw(string $query, array $params = null): ?array
+    public function raw(string $query, array $params = null)
     {
 
         $stmt = $this->con->prepare($query);
